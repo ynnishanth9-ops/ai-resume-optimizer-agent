@@ -2,15 +2,24 @@
 AI Resume Optimizer Agent
 
 A starter AI automation project that compares a resume against a job description
-and identifies missing skills, matched keywords, and improvement suggestions.
+and identifies matched keywords, missing skills, and improvement suggestions.
 """
 
 
 def extract_keywords(text):
     keywords = [
-        "python", "sql", "power bi", "excel", "machine learning",
-        "data analysis", "automation", "api", "langchain",
-        "communication", "stakeholder", "dashboard"
+        "python",
+        "sql",
+        "power bi",
+        "excel",
+        "machine learning",
+        "data analysis",
+        "automation",
+        "api",
+        "langchain",
+        "communication",
+        "stakeholder",
+        "dashboard",
     ]
 
     text_lower = text.lower()
@@ -31,10 +40,14 @@ def generate_recommendations(missing_keywords):
     if not missing_keywords:
         return ["Resume is well aligned with the job description."]
 
-    return [
-        f"Consider adding evidence of experience with {keyword}."
-        for keyword in missing_keywords
-    ]
+    recommendations = []
+
+    for keyword in missing_keywords:
+        recommendations.append(
+            f"Consider adding a clear example showing experience with {keyword}."
+        )
+
+    return recommendations
 
 
 def main():
@@ -45,17 +58,24 @@ def main():
 
     job_description = """
     We are looking for a data analyst with Python, SQL, Power BI,
-    dashboard development, API integration, and automation experience.
+    dashboard development, API integration, automation experience,
+    and strong stakeholder communication.
     """
 
     matched, missing = compare_resume_to_job(resume_text, job_description)
     recommendations = generate_recommendations(missing)
 
-    print("Matched Keywords:", sorted(matched))
-    print("Missing Keywords:", sorted(missing))
-    print("Recommendations:")
-    for item in recommendations:
-        print("-", item)
+    print("Matched Keywords:")
+    for keyword in sorted(matched):
+        print("-", keyword)
+
+    print("\nMissing Keywords:")
+    for keyword in sorted(missing):
+        print("-", keyword)
+
+    print("\nRecommendations:")
+    for recommendation in recommendations:
+        print("-", recommendation)
 
 
 if __name__ == "__main__":
